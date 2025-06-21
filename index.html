@@ -12,11 +12,14 @@
       font-family: 'Comic Sans MS', cursive, sans-serif;
       background-color: #f0f8ff;
       color: #333;
+      /* REVERTIDO: Eliminados display: flex y flex-direction: column del body */
+      /* Ahora el footer no será "sticky" en contenido corto, pero el diseño será estable */
     }
 
     .main-wrapper {
         max-width: 1400px;
         margin: 0 auto;
+        /* REVERTIDO: Eliminados flex-grow, display: flex, flex-direction: column */
     }
 
     header {
@@ -87,6 +90,7 @@
       grid-template-columns: 160px 1fr 160px;
       gap: 20px;
       padding: 20px;
+      /* REVERTIDO: Eliminado flex-grow del main-content */
     }
     .ads-side {
       background-color: #eee;
@@ -101,8 +105,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 20px;
-      /* --- CAMBIO AQUÍ: Añadimos padding a la sección de juegos para evitar recortes --- */
-      padding: 10px; /* Suficiente espacio para que las tarjetas se agranden */
+      padding: 10px;
     }
     .game-card {
       background: #fff;
@@ -116,20 +119,15 @@
       justify-content: center;
       max-width: 100%;
       transition: all 0.3s ease-out;
-      /* --- CAMBIO AQUÍ: Propiedades para evitar recorte y hacer que "flote" --- */
-      position: relative; /* Necesario para que z-index funcione */
-      z-index: 1; /* Asegura que la tarjeta animada esté por encima de las demás */
+      position: relative;
+      z-index: 1;
     }
 
-    /* --- CAMBIO CLAVE AQUÍ: Animación del primer juego aplicada a todas las tarjetas --- */
     .game-card:hover {
-      transform: scale(1.08); /* Aumentado ligeramente a 1.08 para más impacto */
+      transform: scale(1.08);
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      z-index: 2; /* Mayor z-index al hacer hover para asegurar que esté en la parte superior */
+      z-index: 2;
     }
-
-    /* --- ELIMINADAS LAS ANIMACIONES INDIVIDUALES PARA CADA CHILD --- */
-
 
     .game-card img {
       max-width: 100%;
@@ -156,21 +154,96 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      /* REVERTIDO: Eliminado el 'gap' del footer y vuelto a gestionar con márgenes de elementos internos */
     }
+
+    /* Ajustes para el banner inferior */
     .ad-bottom {
       background-color: #ddd;
-      height: 90px;
+      height: 90px; /* Vuelve a 90px como en tu versión antigua */
+      min-height: 90px; /* Asegura que no se aplaste, crucial! */
       max-width: 728px;
       width: 100%;
       box-sizing: border-box;
       text-align: center;
-      line-height: 90px;
+      line-height: 90px; /* Ajusta line-height al nuevo height */
       border: 1px dashed #999;
       border-radius: 8px;
+      margin-bottom: 8px; /* Espacio después del banner */
     }
+
+    /* ESTILO BASE PARA EL MENÚ INFERIOR */
+    .footer-nav {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 8px; /* Espacio después del menú */
+        flex-wrap: wrap;
+    }
+
+    /* ESTILOS ALTERNATIVOS PARA EL MENÚ INFERIOR (Mantenidos de la última versión) */
+
+    /* Estilo A: Similar al de arriba pero más pequeño (Tu estilo actual) */
+    .footer-nav.style-a span {
+        font-family: 'Luckiest Guy', cursive;
+        color: #ffffff;
+        text-shadow: 1.5px 1.5px 0 #444;
+        font-size: 1.2em;
+        letter-spacing: 1.5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .footer-nav.style-a span:hover {
+        transform: scale(1.1);
+        color: #fff;
+    }
+    .footer-nav.style-a span:active {
+        color: #ffcc00;
+    }
+
+    /* Estilo B: Texto más simple, sin sombra, color oscuro con hover suave */
+    .footer-nav.style-b span {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        color: #333;
+        font-size: 1.1em;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+    }
+    .footer-nav.style-b span:hover {
+        color: #007bff;
+    }
+    .footer-nav.style-b span:active {
+        color: #0056b3;
+    }
+
+    /* Estilo C: Pequeñas cápsulas con fondo y borde */
+    .footer-nav.style-c span {
+        font-family: 'Luckiest Guy', cursive;
+        color: #fff;
+        background-color: #88d49a;
+        border: 1px solid #6cb27f;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .footer-nav.style-c span:hover {
+        background-color: #6cb27f;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transform: translateY(-2px);
+    }
+    .footer-nav.style-c span:active {
+        background-color: #5a9e6c;
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
     footer p {
-        margin: 0;
+        margin: 0; /* Aseguramos que el copyright no tenga márgenes que no queremos */
         font-size: 0.9em;
         color: #555;
     }
@@ -183,7 +256,7 @@
       }
       .games-section {
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        padding: 5px; /* Ajuste del padding para móviles también */
+        padding: 5px;
       }
       header, nav, footer {
         margin-left: 10px;
@@ -191,16 +264,23 @@
       }
       .ad-bottom {
         max-width: 100%;
-        height: 50px;
+        height: 50px; /* Vuelve a 50px para móviles */
+        min-height: 50px; /* Asegura la altura mínima para móviles */
         line-height: 50px;
       }
+      .footer-nav {
+        gap: 10px;
+        font-size: 1em;
+      }
     }
+    /* ELIMINADAS LAS REGLAS DE HTML Y BODY PARA EL STICKY FOOTER AVANZADO */
+    /* ELIMINADO EL content-wrap DIV DEL HTML */
   </style>
 </head>
 <body>
   <div class="main-wrapper">
     <header>
-      <img src="imagenes/Mundodrasguititulo.png"
+      <img id="mainTitleImage" src="imagenes/Mundodrasguititulo.png"
            srcset="imagenes/Mundodrasguititulo.png 1x, imagenes/Mundodrasguititulox2.png 2x"
            alt="Mundo Drasgui - Título">
       <div class="ad-square">Publicidad</div>
@@ -209,7 +289,6 @@
       <span>Inicio</span>
       <span>Juegos</span>
       <span>Videos</span>
-      <span>Contacto</span>
     </nav>
 
     <div class="main-content">
@@ -278,8 +357,8 @@
         <div class="game-card">
           <img src="imagenes/11JuegoSiluetasMinix1.jpg"
                srcset="imagenes/11JuegoSiluetasMinix1.jpg 1x, imagenes/11JuegoSiluetasMinix2.jpg 2x"
-               alt="De quién es la sombra">
-          <h3>De quién es la sombra</h3>
+               alt="Sombra de quién">
+          <h3>Sombra de quién</h3>
         </div>
         <div class="game-card">
           <img src="imagenes/12JuegoPuzzlesMinix1.jpg"
@@ -292,8 +371,33 @@
     </div>
     <footer>
       <div class="ad-bottom">Publicidad horizontal</div>
+      <div class="footer-nav style-a"> <span>Contacto</span>
+        <span>Acerca de</span>
+        <span>Privacidad</span>
+      </div>
       <p>&copy; 2025 MundoDrasgui by AsensioSoft. Todos los derechos reservados.</p>
     </footer>
   </div>
+
+  <script>
+    const mainTitleImage = document.getElementById('mainTitleImage');
+    const defaultSrc = 'imagenes/Mundodrasguititulo.png';
+    const defaultSrcset = 'imagenes/Mundodrasguititulo.png 1x, imagenes/Mundodrasguititulox2.png 2x';
+    const newSrc = 'imagenes/Mundodrasguititulov2.png';
+    const newSrcset = 'imagenes/Mundodrasguititulov2.png 1x, imagenes/Mundodrasguititulov2x2.png 2x';
+
+    function checkImageSource() {
+      if (window.innerWidth <= 629) {
+        mainTitleImage.src = newSrc;
+        mainTitleImage.srcset = newSrcset;
+      } else {
+        mainTitleImage.src = defaultSrc;
+        mainTitleImage.srcset = defaultSrcset;
+      }
+    }
+
+    checkImageSource();
+    window.addEventListener('resize', checkImageSource);
+  </script>
 </body>
 </html>
